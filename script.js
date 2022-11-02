@@ -6,12 +6,19 @@
 6. return to blank grid
 optional extras - best out of 3 selector? that would also keep track of each round*/
 
-function makeBoard(num){
-    for (i = 0; i < num; i++){
-        let grid = document.getElementById("grid");
-        let div = document.createElement("div");
-        div.id = `grid ${i}`
-        grid.appendChild(div); 
-    }
+function makeBoard(num) {
+  for (i = 0; i < num; i++) {
+    let grid = document.getElementById("grid");
+    let div = document.createElement("div");
+    div.id = `grid ${i}`;
+    grid.appendChild(div);
+  }
 }
-window.addEventListener("load", makeBoard(9)); 
+window.addEventListener("load", makeBoard(9));
+
+const roundPicker = document.querySelector('input[type="range"]');
+const output = document.querySelector(".output");
+
+roundPicker.oninput = () => {
+  output.textContent = roundPicker.value;
+};
