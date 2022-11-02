@@ -1,4 +1,4 @@
-/* 1. create board (grid)
+/* 1. create board (grid) 
 2. make option to choose x or o
 3. make choice appear when grid square is selected
 4. stop game when 3 of the same symbols are in a row(not sure on this part!)
@@ -22,3 +22,26 @@ const output = document.querySelector(".output");
 roundPicker.oninput = () => {
   output.textContent = roundPicker.value;
 };
+
+let userChoice;
+const xButton = document.getElementById("xButton");
+const oButton = document.getElementById("oButton");
+
+function disableButton(btn) {
+  document.getElementById(btn.id).disabled = true;
+}
+oButton.addEventListener("click", (event) => {
+  let userChoice = "O";
+  console.log(userChoice);
+  disableButton(oButton);
+  disableButton(xButton);
+  document.getElementById("range").disabled = true;
+});
+
+xButton.addEventListener("click", (event) => {
+  let userChoice = "X";
+  console.log(userChoice);
+  disableButton(oButton);
+  disableButton(xButton);
+  document.getElementById("range").disabled = true;
+});
