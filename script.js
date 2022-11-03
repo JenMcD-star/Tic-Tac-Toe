@@ -10,6 +10,7 @@ function makeBoard(num) {
 }
 
 makeBoard(9);
+
 //set up variables for play
 let userChoice;
 let player1;
@@ -83,13 +84,14 @@ function switchPlayer() {
   totalMoves++;
   return userChoice;
 }
+//first time through it gets the value but second time the value is undefined. 
 
 /* Click handler for board
 adds the value of each div to an array for each player*/
 const clickHandler = function (e) {
   e.currentTarget.innerHTML = userChoice;
   e.currentTarget.removeEventListener("click", clickHandler);
-  
+  console.log(e.currentTarget)
   
   if (userChoice == "X") {
     xCombos.push(e.currentTarget.value);
@@ -106,6 +108,7 @@ const clickHandler = function (e) {
 function addListener(element) {
   for (let i = 0; i < element.length; i++) {
     element[i].addEventListener("click", clickHandler);
+    console.log(element[i].value)
   }
 }
 
@@ -227,6 +230,7 @@ function playAgain() {
   for (let i = 0; i < divs.length; i++) {
     let blank = "";
     divs[i].innerHTML = blank;
+    divs[i].value = i;
   }
   addListener(divs);
 
