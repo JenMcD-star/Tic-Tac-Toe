@@ -47,7 +47,7 @@ function enableButton(btn) {
   document.getElementById(btn.id).disabled = false;
 }
 
-//event listen for x, sets opposite choice for player2
+//event listen for o, sets opposite choice for player2
 //and disables buttons before starting the game
 oButton.addEventListener("click", (event) => {
   userChoice = "O";
