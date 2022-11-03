@@ -18,7 +18,7 @@ body {
   display: flex;
   justify-content: space-around;
   gap: 10px;
-  margin-right: 120px;
+  font-size: larger;
 }
 
 
@@ -33,7 +33,7 @@ body {
 }
 #grid > div {
   background-color: white;
-  font-size: 12vw;
+  font-size: 130px;
 }
 
 button {

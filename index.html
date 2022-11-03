@@ -13,23 +13,18 @@
     <h1>Tic-Tac-Toe</h1>
     <div id="gamePlay">
       <div id="options">
-        <div class="rounds">
-          <label for="rounds">Number of rounds (1-10):</label>
-          <input type="range" id = "range" min="1" max="10" value="1" /><span class="output">1</span>
-
           <p>Choose X or O:</p>
           <button id="xButton" value ="x">X</button>
           <button id ="oButton" value = "o">O</button>
+          <div id="playAgain"></div>
         </div>
-      </div>
-      <div id="backgroundGrid">
         <div id="grid"></div>
-      </div>
       <div class="scoreboard">
         <h2>Scoreboard</h2>
-        <p>Player 1:</p>
-        <p>Player 2:</p>
+        <div id="player1">Player 1: </div>
+        <div id="player2">Player 2:</div>
       </div>
     </div>
+  </div>
   </body>
 </html>
