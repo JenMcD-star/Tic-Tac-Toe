@@ -12,6 +12,7 @@ function makeBoard(num) {
     let grid = document.getElementById("grid");
     let div = document.createElement("div");
     div.id = `item ${i}`;
+    div.value = `${i}`;
     grid.appendChild(div);
   }
 }
@@ -19,7 +20,8 @@ function makeBoard(num) {
 makeBoard(9);
 
 let userChoice;
-let computerChoice;
+const xCombos = [];
+const oCombos = [];
 const xButton = document.getElementById("xButton");
 const oButton = document.getElementById("oButton");
 const divs = document.querySelectorAll("[id*=item");
@@ -33,7 +35,7 @@ oButton.addEventListener("click", (event) => {
   disableButton(oButton);
   disableButton(xButton);
   document.getElementById("range").disabled = true;
-  checkWinner();
+  playGame();
 });
 
 xButton.addEventListener("click", (event) => {
@@ -41,23 +43,15 @@ xButton.addEventListener("click", (event) => {
   disableButton(oButton);
   disableButton(xButton);
   document.getElementById("range").disabled = true;
-  checkWinner();
+  playGame();
 });
 
 let totalMoves = 0;
 
 function playGame() {
-  totalMoves += 1;
   playerPlay(userChoice);
   //checkWinner();
 }
-
-/* Remove all event listeners */
-const removeListeners = () => {
-  for (let j = 0; j < divs.length; j++) {
-    divs[j].removeEventListener("click", clickHandler);
-  }
-};
 
 function switchPlayer() {
   if (userChoice == "X") {
@@ -75,7 +69,16 @@ function playerPlay() {
     e.currentTarget.removeEventListener("click", clickHandler);
 
     console.log(userChoice);
+    if (userChoice == "X") {
+      xCombos.push(e.currentTarget.value);
+      console.log(xCombos);
+    }
+    if (userChoice == "O") {
+      oCombos.push(e.currentTarget.value);
+      console.log(oCombos);
+    }
     switchPlayer();
+    winningCombos();
   };
 
   /* Add event listeners */
@@ -84,10 +87,57 @@ function playerPlay() {
   }
 }
 
-function checkWinner() {
-  if (totalMoves < 9) {
-    playGame();
-  } else {
-    console.log("game over");
+function checkWinner() {}
+
+const w = [0, 1, 2];
+const w1 = [3, 4, 5];
+const w2 = [6, 7, 8];
+const w3 = [0, 3, 6];
+const w4 = [1, 4, 7];
+const w5 = [2, 5, 8];
+const w6 = [0, 4, 8];
+const w7 = [2, 4, 6];
+
+function winningCombos() {
+  //gameover()
+  let xWins = [];
+  let oWins = [];
+  xCombos.forEach(function (element) {
+    xWins.push(Number(element));
+    console.log(xWins);
+  });
+  oCombos.forEach(function (element) {
+    oWins.push(Number(element));
+    console.log(oWins);
+  });
+  const isSubset = (array1, array2) =>
+    array2.every((element) => array1.includes(element));
+  if (
+    isSubset(xWins, w) == true ||
+    isSubset(xWins, w1) == true ||
+    isSubset(xWins, w2) == true ||
+    isSubset(xWins, w1) == true ||
+    isSubset(xWins, w2) == true ||
+    isSubset(xWins, w3) == true ||
+    isSubset(xWins, w4) == true ||
+    isSubset(xWins, w5) == true ||
+    isSubset(xWins, w6) == true ||
+    isSubset(xWins, w7) == true
+  ) {
+    alert("x wins");
+  }
+  if (
+    isSubset(oWins, w) == true ||
+    isSubset(oWins, w1) == true ||
+    isSubset(oWins, w2) == true ||
+    isSubset(oWins, w1) == true ||
+    isSubset(oWins, w2) == true ||
+    isSubset(oWins, w3) == true ||
+    isSubset(oWins, w4) == true ||
+    isSubset(oWins, w5) == true ||
+    isSubset(oWins, w6) == true ||
+    isSubset(oWins, w7) == true
+  ) {
+    alert("o wins");
   }
 }
