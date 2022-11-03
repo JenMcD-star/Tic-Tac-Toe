@@ -47,7 +47,7 @@ function enableButton(btn) {
   document.getElementById(btn.id).disabled = false;
 }
 
-//event listen for x, sets opposite choice for player2 
+//event listen for x, sets opposite choice for player2
 //and disables buttons before starting the game
 oButton.addEventListener("click", (event) => {
   userChoice = "O";
@@ -58,7 +58,7 @@ oButton.addEventListener("click", (event) => {
   playGame();
 });
 
-//event listener for x, sets opposite choice for player2 
+//event listener for x, sets opposite choice for player2
 //and disables buttons before starting the game
 xButton.addEventListener("click", (event) => {
   userChoice = "X";
@@ -68,7 +68,6 @@ xButton.addEventListener("click", (event) => {
   disableButton(xButton);
   playGame();
 });
-
 
 function playGame() {
   playerPlay(userChoice);
@@ -84,31 +83,30 @@ function switchPlayer() {
   totalMoves++;
   return userChoice;
 }
-//first time through it gets the value but second time the value is undefined. 
 
 /* Click handler for board
 adds the value of each div to an array for each player*/
 const clickHandler = function (e) {
+  if (userChoice == null){
+    e.currentTarget.innerHTML = "";
+  } else {
   e.currentTarget.innerHTML = userChoice;
   e.currentTarget.removeEventListener("click", clickHandler);
-  console.log(e.currentTarget)
-  
+
   if (userChoice == "X") {
     xCombos.push(e.currentTarget.value);
   }
   if (userChoice == "O") {
     oCombos.push(e.currentTarget.value);
   }
-  console.log(oCombos, xCombos);
   switchPlayer();
   winningCombos();
-};
+}};
 
 //adds events listener to any element
 function addListener(element) {
   for (let i = 0; i < element.length; i++) {
     element[i].addEventListener("click", clickHandler);
-    console.log(element[i].value)
   }
 }
 
@@ -206,10 +204,9 @@ function gameOver() {
   totalMoves = 0;
   player1 = 0;
   player2 = 0;
-  userChoice = 0;
+  userChoice = null;
   oCombos = [];
   xCombos = [];
-
 }
 
 function removeEvent() {
@@ -225,7 +222,7 @@ function playAgain() {
   //disable button
   disableButton(playAgainBtn);
   //play again button returns board to blank (keep score)
-  
+
   let divs = document.querySelectorAll("[id*=item");
   for (let i = 0; i < divs.length; i++) {
     let blank = "";
