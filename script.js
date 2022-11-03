@@ -6,8 +6,7 @@
 4. stop game when 3 of the same symbols are in a row(not sure on this part!)
 5. alert winner
 6. return to blank grid
-optional extras - best out of 3 selector? that would also keep track of each round*/
-
+*/
 function makeBoard(num) {
   for (i = 0; i < num; i++) {
     let grid = document.getElementById("grid");
@@ -16,14 +15,8 @@ function makeBoard(num) {
     grid.appendChild(div);
   }
 }
-window.addEventListener("load", makeBoard(9));
 
-const roundPicker = document.querySelector('input[type="range"]');
-const output = document.querySelector(".output");
-
-roundPicker.oninput = () => {
-  output.textContent = roundPicker.value;
-};
+makeBoard(9);
 
 let userChoice;
 let computerChoice;
@@ -34,52 +27,67 @@ const divs = document.querySelectorAll("[id*=item");
 function disableButton(btn) {
   document.getElementById(btn.id).disabled = true;
 }
+
 oButton.addEventListener("click", (event) => {
   userChoice = "O";
-  computerChoice = "X";
   disableButton(oButton);
   disableButton(xButton);
   document.getElementById("range").disabled = true;
-  playGame();
+  checkWinner();
 });
 
 xButton.addEventListener("click", (event) => {
   userChoice = "X";
-  computerChoice = "O";
-  console.log(userChoice);
   disableButton(oButton);
   disableButton(xButton);
   document.getElementById("range").disabled = true;
-  playGame();
+  checkWinner();
 });
 
+let totalMoves = 0;
+
 function playGame() {
-  let playerturns = 0;
-  let computerturns = 0;
-  if (playerturns <= computerturns) {
-    playerPlay();
+  totalMoves += 1;
+  playerPlay(userChoice);
+  //checkWinner();
+}
+
+/* Remove all event listeners */
+const removeListeners = () => {
+  for (let j = 0; j < divs.length; j++) {
+    divs[j].removeEventListener("click", clickHandler);
+  }
+};
+
+function switchPlayer() {
+  if (userChoice == "X") {
+    userChoice = "O";
   } else {
-    computerPlay();
+    userChoice = "X";
   }
-}
-
-function fillDivs() {
-  for (let i = 0; i < divs.length; i++) {
-    return divs[i].addEventListener("click", clickHandler);
-  }
-}
-
-function clickHandler(e) {
-  e.currentTarget.innerHTML = userChoice;
-}
-
-const randomNum = Math.floor(Math.random() * 9);
-
-function computerPlay(randomNum) {
-  console.log("rest");
-  divs[randomNum].innerHTML = `${computerChoice}`;
+  return userChoice;
 }
 
 function playerPlay() {
-  fillDivs(userChoice);
+  /* Click event listener */
+  const clickHandler = (e) => {
+    e.currentTarget.innerHTML = userChoice;
+    e.currentTarget.removeEventListener("click", clickHandler);
+
+    console.log(userChoice);
+    switchPlayer();
+  };
+
+  /* Add event listeners */
+  for (let i = 0; i < divs.length; i++) {
+    divs[i].addEventListener("click", clickHandler);
+  }
+}
+
+function checkWinner() {
+  if (totalMoves < 9) {
+    playGame();
+  } else {
+    console.log("game over");
+  }
 }
