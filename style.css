@@ -33,8 +33,11 @@ body {
 }
 #grid > div {
   background-color: white;
-  font-size: 130px;
+  font-size: 100px;
 }
+.adjust {
+  font-size-adjust: 0.78;
+ }
 
 button {
   padding: 10px;
