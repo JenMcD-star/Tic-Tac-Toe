@@ -141,6 +141,7 @@ function winningCombos() {
 
   //compares the new number array with the winning possiblities
   //there must be a better way to do this...
+  //Todd suggested looking into multidimensional arrays- come back and try this
   const isSubset = (array1, array2) =>
     array2.every((element) => array1.includes(element));
   if (
