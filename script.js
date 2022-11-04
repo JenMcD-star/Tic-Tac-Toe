@@ -84,8 +84,11 @@ function switchPlayer() {
   return userChoice;
 }
 
-/* Click handler for board
-adds the value of each div to an array for each player*/
+/* Click handler for grid
+adds the value of each div to an array for each player
+removes event listener after click so you don't overwrite previously clicked box
+calls to switch from x to o or vice versa
+checks to see if there is a winner or tie*/
 const clickHandler = function (e) {
   if (userChoice == null){
     e.currentTarget.innerHTML = "";
@@ -111,7 +114,7 @@ function addListener(element) {
 }
 
 //adds the listener to the board which enables the players to make choices
-function playerPlay(userChoice) {
+function playerPlay() {
   addListener(divs);
 }
 
@@ -221,8 +224,8 @@ function removeEvent() {
 function playAgain() {
   //disable button
   disableButton(playAgainBtn);
-  //play again button returns board to blank (keep score)
-
+  //play again button returns board to blank
+//gives the divs a value to push into combo arrays
   let divs = document.querySelectorAll("[id*=item");
   for (let i = 0; i < divs.length; i++) {
     let blank = "";
